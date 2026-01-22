@@ -1,0 +1,99 @@
+    @import "bootstrap/dist/css/bootstrap.min.css";
+    /* You can add global styles to this file, and also import other style files */
+    html, body {
+    height: 100%;
+    margin: 0;
+    }
+
+    /* MAIN LAYOUT */
+    .app-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    }
+
+    /* CONTENT */
+    .app-main {
+    flex: 1;
+    padding-top: 70px; /* fixed navbar height */
+    }
+
+    /* SOCIAL BAR */
+    .social-footer {
+    background: linear-gradient(90deg, #2c2f8f, #7b3d8a);
+    color: #fff;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+
+    .social-icons {
+    display: flex;
+    gap: 10px;
+    }
+
+    .icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    }
+
+    /* ICON COLORS */
+    .facebook { background:#3b5998; }
+    .youtube { background:#ff0000; }
+    .instagram { background:#e4405f; }
+    .linkedin { background:#0077b5; }
+    .telegram { background:#0088cc; }
+    .pinterest { background:#bd081c; }
+    .tumblr { background:#36465d; }
+    .snapchat { background:#fffc00; color:#000; }
+    .twitter { background:#1da1f2; }
+
+    /* FOOTER */
+    .lux-footer {
+    background: linear-gradient(180deg, #021b79, #0575e6);
+    color: #fff;
+    padding: 30px 20px;
+    }
+
+    .lux-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    }
+
+    .trust-badge {
+    margin: 6px 0;
+    }
+
+
+    /* CHATBOT WIDGET */
+
+    
+/* Proper center without breaking Bootstrap */
+.modal-dialog {
+  margin: auto !important;
+}
+
+/* Ensure modal uses full viewport height */
+.modal.show .modal-dialog {
+  transform: none !important;
+}
+
+/* Fix navbar + padding issue */
+body.modal-open {
+  overflow: hidden;
+  padding-right: 0 !important;
+}
+.irctc-contact-modal .modal-body {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+.irctc-contact-modal .modal-title {
+  font-weight: 600;
+}

@@ -1,0 +1,256 @@
+<!-- <div class="container mt-5"> -->
+<div class="container-fluid mt-5">
+
+
+  <!-- HEADING -->
+  <h1 class="text-center fw-bold mb-5 display-5 heading-gradient">
+    🚆Safar Shuru Yahin Se 🚆
+  </h1>
+
+  <div class="row justify-content-center align-items-center">
+    <div class="col-lg-12 col-xl-11">
+
+      <div class="row justify-content-center g-4">
+
+        <!-- FORM CARD -->
+        <div class="col-md-10 col-lg-5 col-xl-5 order-2 order-lg-1">
+          <div class="card shadow-lg p-4 rounded-4">
+            <form class="pt-2">
+              <!-- PNR STATUS -->
+              <!-- <div class="pnr-strip mb-3">
+                <div class="pnr-left">
+                  <strong>PNR Status</strong>
+                  <span>Check your booking status</span>
+                </div>
+
+                <div class="pnr-right">
+                  <input type="text" maxlength="10" class="form-control pnr-input" placeholder="Enter PNR"
+                    [(ngModel)]="pnrNumber" name="pnrNumber" />
+                  <button type="button" class="btn btn-primary pnr-btn" (click)="checkPnr()">
+                    Check
+                  </button>
+                </div>
+                
+              </div> -->
+
+              <div class="pnr-strip mb-3">
+                <div class="pnr-left">
+                  <strong>PNR Status</strong>
+                  <span>Check your booking status</span>
+                </div>
+
+                <div class="pnr-right">
+                  <input type="text" class="form-control pnr-input" placeholder="Enter 10-digit PNR" maxlength="10"
+                    inputmode="numeric" pattern="[0-9]*" [(ngModel)]="pnrNumber" name="pnrNumber"
+                    (input)="onPnrInput($event)" />
+
+                  <button type="button" class="btn btn-primary pnr-btn" (click)="checkPnr()"
+                    [disabled]="pnrNumber.length !== 10">
+                    Check
+                  </button>
+                </div>
+              </div>
+              <!-- FROM & TO -->
+              <div class="row g-2 align-items-end station-row">
+
+                <!-- FROM -->
+                <div class="col-12 col-md-5 mb-2 mb-md-0">
+                  <label class="form-label fw-semibold">From Station</label>
+                  <select [(ngModel)]="fromStationId" (ngModelChange)="clearError()" name="fromStationId"
+                    class="form-select">
+                    <option value="0">Select Station</option>
+                    @for(item of stationList; track $index){
+                    <option [value]="item.stationID">{{ item.stationName }}</option>
+
+                    }
+                  </select>
+                </div>
+
+                <!-- SWAP BUTTON -->
+                <div class="col-12 col-md-2 text-center swap-col">
+                  <button type="button" class="btn btn-light swap-btn" (click)="swapStations()" title="Swap Stations">
+                    🔁
+                  </button>
+                </div>
+
+
+                <!-- TO -->
+                <div class="col-12 col-md-5">
+                  <label class="form-label fw-semibold">To Station</label>
+                  <select [(ngModel)]="toStationId" (ngModelChange)="clearError()" name="toStationId"
+                    class="form-select">
+                    <option value="0">Select Station</option>
+                    @for(item of stationList; track $index){
+                    <option [value]="item.stationID">{{ item.stationName }}</option>
+                    }
+                  </select>
+                </div>
+
+              </div>
+
+
+              <!-- DATE Picker -->
+              <!-- DATE QUICK SELECT -->
+              <div class="date-section mb-3">
+
+                <!-- DATE -->
+                <div class="mb-3">
+                  <label class="form-label fw-semibold">Date of Journey</label>
+                  <input type="date" [(ngModel)]="dateOfJourney" (ngModelChange)="clearError()" name="dateOfJourney"
+                    class="form-control" />
+                </div>
+                <div class="date-quick-wrapper mb-2">
+                  <button type="button" class="date-pill" [class.active]="selectedDay === 'today'"
+                    (click)="selectQuickDate(0, 'today')">
+                    Today
+                  </button>
+
+                  <button type="button" class="date-pill" [class.active]="selectedDay === 'tomorrow'"
+                    (click)="selectQuickDate(1, 'tomorrow')">
+                    Tomorrow
+                  </button>
+
+                  <button type="button" class="date-pill" [class.active]="selectedDay === 'dayAfter'"
+                    (click)="selectQuickDate(2, 'dayAfter')">
+                    Day After
+                  </button>
+                </div>
+
+
+
+              </div>
+
+
+              <!-- SEARCH BUTTON -->
+
+              <div class="d-grid mt-4 position-relative">
+                <div *ngIf="showError" class="error-box">
+                  <span class="error-icon">⚠️</span>
+                  <span class="error-text">{{errorMessage}}</span>
+                </div>
+                <button type="button" class="btn btn-gradient btn-lg shadow-sm" (click)="onSearch()"
+                  [disabled]="loading">
+                  <span *ngIf="!loading">Search Trains</span>
+                  <span *ngIf="loading">
+                    <span class="btn-spinner me-2"></span>
+                    Searching...
+                  </span>
+                </button>
+              </div>
+
+              <!-- After Search Trains Button -->
+
+
+
+              <!-- FULL SCREEN OVERLAY SPINNER -->
+              <div class="overlay-loader" *ngIf="loading">
+                <div class="overlay-spinner">
+                  <div class="rainbow-ring">
+                    <div></div> <!-- third ring -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- FULL SCREEN DIM OVERLAY LOADER -->
+              <div class="overlay-loader" *ngIf="loading">
+                <div class="overlay-spinner">
+                  <div class="irctc-spinner"></div>
+                  <p class="text-light mt-3 fw-bold">Searching trains, please wait...</p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- IMAGE CARD -->
+        <div
+          class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center justify-content-center order-1 order-lg-2 mb-4 mb-lg-0">
+
+          <!-- <div class="card shadow-lg rounded-4 overflow-hidden" style="border:none;"> -->
+
+          <div class="card shadow-lg rounded-4 train-wrapper" style="border:none; overflow: visible;">
+            <img
+              src="https://www.livemint.com/lm-img/img/2024/04/08/1600x900/LVande_Bharat_1712573526957_1712573527261.jpg"
+              class="img-fluid" alt="Train Image" style="object-fit:cover; height:100%; width:100%;" />
+            <div class="col-md-10 col-lg-6 col-xl-7">
+
+            </div>
+
+            <div class="seat-overlay">
+              <select [(ngModel)]="seatType">
+                <option value="SL">SL</option>
+                <option value="3A">3A</option>
+                <option value="2A">2A</option>
+                <option value="1A">1A</option>
+                <option value="CC">CC</option>
+                <option value="EC">EC</option>
+              </select>
+              <button (click)="showSeatInfo()">ℹ️</button>
+            </div>
+            <!-- Seat Info Card -->
+            <div class="seat-card" *ngIf="seatInfo">
+              <h5>{{seatInfo.title}}</h5>
+              <p>🛏 {{seatInfo.bed}}</p>
+              <p>❄️ {{seatInfo.ac}}</p>
+              <p>👨‍👩‍👧 {{seatInfo.bestFor}}</p>
+              <p>💰 {{seatInfo.price}}</p>
+              <button (click)="seatInfo=null">OK, Got it</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Estimate Fare – now just below image -->
+      <!-- <div class="estimate-under-train">
+
+        <button class="btn btn-info w-100 mb-2" (click)="calculateFare()">
+          Estimate Fare
+        </button>
+
+        <div class="fare-card" *ngIf="estimatedFare">
+          <h6>Estimated Fare ({{ distanceKm }} km)</h6>
+          <div class="fare-row">Sleeper: ₹{{ estimatedFare.SL }}</div>
+          <div class="fare-row">3A: ₹{{ estimatedFare.A3 }}</div>
+          <div class="fare-row">2A: ₹{{ estimatedFare.A2 }}</div>
+          <div class="fare-row">1A: ₹{{ estimatedFare.A1 }}</div>
+        </div>
+      
+        <button class="btn btn-success w-100 mt-3" *ngIf="fromStationId && toStationId && dateOfJourney"
+          (click)="downloadTicket()">
+          Download Sample Ticket
+        </button>
+      </div> -->
+      <!-- Estimate Fare Section -->
+      <div class="estimate-under-train p-3">
+        <button class="btn btn-info w-100 mb-2" (click)="calculateFare()" [disabled]="!fromStationId|| !toStationId">
+          🚆 <i class="fa-solid fa-indian-rupee-sign"></i>
+          Estimate Fare
+        </button>
+
+        <!-- Fare Card -->
+        <div class="fare-card shadow" *ngIf="estimatedFare">
+          <h6 class="fare-title">
+            Estimated Fare <span>({{ distanceKm }} km)</span>
+          </h6>
+
+          <div class="fare-grid">
+            <div class="fare-row">🛏 Sleeper <b>₹{{ estimatedFare.SL }}</b></div>
+            <div class="fare-row">🚆 3A <b>₹{{ estimatedFare.A3 }}</b></div>
+            <div class="fare-row">🪟 2A <b>₹{{ estimatedFare.A2 }}</b></div>
+            <div class="fare-row">👑 1A <b>₹{{ estimatedFare.A1 }}</b></div>
+          </div>
+        </div>
+
+        <!-- Download Button -->
+        <button class="btn btn-success w-100 mt-3 shadow" *ngIf="fromStationId && toStationId && dateOfJourney"
+          (click)="downloadTicket()">
+          <i class="fa-solid fa-file-pdf"></i>
+          <i class="fa-solid fa-download ms-1"></i>
+          Download Sample Ticket
+        </button>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>

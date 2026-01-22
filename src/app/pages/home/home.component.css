@@ -1,0 +1,816 @@
+/* HEADING GRADIENT ANIMATION */
+.heading-gradient {
+  background: linear-gradient(90deg, #ff6a00, #ee0979, #7f00ff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 5s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* GLASS CARD EFFECT */
+.glass-card {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+/* FORM INPUTS GLASS */
+.form-glass {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+/* BUTTON GRADIENT */
+.btn-gradient {
+  background: linear-gradient(135deg, #ff6a00, #ee0979);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255,105,0,0.4);
+}
+
+/* TRAIN IMAGE ANIMATION */
+.train-img-animate {
+  transition: transform 1s ease-in-out;
+}
+
+.train-img-animate:hover {
+  transform: scale(1.03) rotate(0.5deg);
+}
+
+/* RESPONSIVE */
+@media (max-width: 767px){
+  .glass-card { padding: 20px; }
+}
+
+/* Pnr status check */
+/* PNR STATUS STRIP */
+.pnr-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f4f7ff;
+  border: 1px solid #dbe4ff;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.pnr-left strong {
+  font-size: 14px;
+  color: #0d3b8e;
+  display: block;
+}
+
+.pnr-left span {
+  font-size: 12px;
+  color: #666;
+}
+
+.pnr-right {
+  display: flex;
+  gap: 8px;
+}
+
+.pnr-input {
+  width: 140px;
+  font-size: 13px;
+}
+
+.pnr-btn {
+  font-size: 13px;
+  padding: 6px 14px;
+}
+
+
+
+.swap-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  font-size: 18px;
+}
+.swap-btn:active {
+  transform: rotate(180deg);
+  transition: 0.2s;
+}
+
+
+
+
+.swap-btn:hover {
+  background: #0d6efd;
+  color: #fff;
+}
+input[type="date"] {
+  height: 38px;
+}
+
+/* spinner while search */
+/* FULL SCREEN DIM OVERLAY (LIGHTER) */
+.overlay-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3); /* lighter dim */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+
+/* CENTER SPINNER */
+.overlay-spinner {
+  text-align: center;
+}
+
+/* RAINBOW TRIPLE-RING SPINNER */
+.rainbow-ring {
+  display: inline-block;
+  width: 5rem;
+  height: 5rem;
+  position: relative;
+}
+
+.rainbow-ring::after,
+.rainbow-ring::before,
+.rainbow-ring div {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 0.5rem solid transparent;
+  border-top-color: red;
+  animation: spin 1.2s linear infinite;
+}
+
+.rainbow-ring::before {
+  border-top-color: orange;
+  animation-delay: -0.4s;
+}
+
+.rainbow-ring div {
+  border-top-color: #00ff00; /* green */
+  animation-delay: -0.8s;
+}
+
+/* SPIN ANIMATION */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* BUTTON SPINNER */
+.btn-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 0.15rem solid #f3f3f3;
+  border-top: 0.15rem solid #021b79;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.8s linear infinite;
+}
+
+/* BUTTON GRADIENT */
+
+
+.btn-gradient:disabled {
+  opacity: 0.7;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+ .overlay-spinner p {
+  margin-top: 12px;
+  font-weight: 500;
+  color: #fff;
+}
+}
+
+@media (max-width: 767px) {
+
+  .pnr-strip {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .pnr-right {
+    justify-content: space-between;
+  }
+
+  .pnr-input {
+    width: 100%;
+  }
+
+  .station-row {
+    gap: 6px !important;
+  }
+
+  .swap-col {
+    margin: 6px 0 !important;
+  }
+}
+
+/* ==== MOBILE EXACT DESKTOP-LIKE COMPACT UI ==== */
+@media (max-width: 767px) {
+
+  /* remove label extra gap */
+  .station-row label {
+    margin-bottom: 4px !important;
+  }
+
+  /* reduce select height spacing */
+  .station-row .form-select {
+    margin-bottom: 6px;
+  }
+
+  /* swap button center & tight */
+  .swap-col {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .swap-btn {
+    margin: 4px auto !important;
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  /* collapse row spacing */
+  .station-row {
+    row-gap: 4px !important;
+  }
+
+  /* remove extra bootstrap bottom margins */
+  .station-row .col-12 {
+    margin-bottom: 0 !important;
+  }
+}
+
+/* Date picker seleted like todat tommrorrow and day after tomorrow */
+/* DATE QUICK SELECT WRAPPER */
+.date-quick-wrapper {
+  display: flex;
+  border: 1px solid #cfe0ff;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f5f9ff;
+}
+
+/* DATE BUTTON */
+.date-pill {
+  flex: 1;
+  padding: 10px 0;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  background: transparent;
+  color: #0d3b8e;
+  transition: all 0.3s ease;
+}
+
+/* ACTIVE STATE */
+.date-pill.active {
+  background: linear-gradient(135deg, #0d6efd, #0a58ca);
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3);
+}
+
+/* HOVER */
+.date-pill:hover:not(.active) {
+  background: #e9f0ff;
+}
+
+/* MOBILE PERFECT */
+@media (max-width: 767px) {
+  .date-pill {
+    font-size: 13px;
+    padding: 9px 0;
+  }
+}
+
+/* ===== SECTION SPACING ===== */
+.station-section {
+  margin-top: 12px;
+}
+
+.date-section {
+  margin-top: 8px;
+}
+
+/* ===== DATE BUTTONS FIX ===== */
+.date-quick-wrapper {
+  display: flex;
+  gap: 6px;
+  background: #f4f7ff;
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid #dbe4ff;
+}
+
+.date-pill {
+  flex: 1;
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #0d3b8e;
+}
+
+.date-pill.active {
+  background: linear-gradient(135deg, #0d6efd, #0a58ca);
+  color: #fff;
+}
+
+/* ===== DESKTOP BALANCE ===== */
+@media (min-width: 768px) {
+  .date-quick-wrapper {
+    margin-bottom: 10px;
+  }
+}
+
+/* ===== MOBILE POLISH ===== */
+@media (max-width: 767px) {
+  .station-section {
+    margin-bottom: 10px;
+  }
+
+  .date-section {
+    margin-top: 6px;
+  }
+}
+
+/* Error message for from station to station */
+.error-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff4f4;
+  border-left: 4px solid #ff4d4f;
+  color: #b71c1c;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 12px;
+  animation: slideDown 0.3s ease;
+}
+
+.error-icon {
+  font-size: 18px;
+}
+
+.error-text {
+  font-weight: 500;
+}
+
+/* Smooth animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Seat Infomartion while clicking i button */
+/* Wrapper for image + overlay */
+.train-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+/* Train Image */
+.train-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+/* Bottom-left overlay controls */
+.seat-overlay {
+  position: absolute;
+  top: -22px;          /* card ke upar nikal gaya */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 8px 14px;
+  border-radius: 14px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  z-index: 20;
+}
+
+
+.seat-overlay select {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-size: 13px;
+}
+
+.seat-overlay button {
+  border: none;
+  background: #0d6efd;
+  color: #fff;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.seat-overlay button:hover {
+  background: #0b5ed7;
+}
+
+/* Floating info card (top-right) */
+.seat-card {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #ffffff;
+  padding: 12px 14px;
+  border-radius: 12px;
+  width: 230px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  z-index: 5;
+}
+
+.seat-card h5 {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.seat-card p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.seat-card button {
+  margin-top: 10px;
+  width: 100%;
+  background: linear-gradient(90deg, #0d6efd, #6610f2);
+  border: none;
+  color: white;
+  padding: 6px 0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.seat-card button:hover {
+  opacity: 0.9;
+}
+
+.extra-tools {
+  margin-top: 16px;
+}
+
+
+/* Download Button */
+.extra-tools .btn-success {
+  background: #198754;
+  border: none;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.extra-tools .btn-success:hover {
+  background: #157347;
+}
+
+/* Fare Card Container */
+.fare-card {
+  margin-top: 12px;
+  background: linear-gradient(180deg, #f7f9ff, #eef3ff);
+  border: 1px solid #dbe4ff;
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+
+/* Title */
+.fare-card h6 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2d5a;
+  margin-bottom: 12px;
+}
+
+/* Grid for rows */
+.fare-card {
+  display: block;
+}
+
+.fare-row {
+  width: 48%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Bullet dot */
+.fare-row::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: #9bb6ff;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Price bold */
+.fare-row {
+  font-weight: 500;
+}
+
+.fare-row span,
+.fare-row {
+  justify-content: space-between;
+}
+
+.fare-row {
+  padding-left: 2px;
+}
+
+/* Download Button Style */
+.extra-tools .btn-success {
+  margin-top: 12px;
+  background: #1f6f5c;
+  border: none;
+  border-radius: 12px;
+  padding: 10px;
+  font-weight: 600;
+}
+
+.extra-tools .btn-success:hover {
+  background: #185b4c;
+}
+
+/* Fare under train image */
+.estimate-under-train {
+  margin-top: 14px;
+}
+
+/* Train image look */
+.train-img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+/* Mobile fix */
+@media (max-width: 768px) {
+  .estimate-under-train {
+    margin-top: 10px;
+  }
+
+  .fare-card {
+    padding: 14px;
+  }
+
+  .fare-row {
+    font-size: 13px;
+  }
+}
+.btn-info,
+.btn-success {
+  padding: 10px 0;   /* abhi zyada mota lag raha */
+  font-size: 15px;
+}
+.btn-info {
+  background: transparent;
+  color: #0d6efd;
+  border: 1.5px dashed #0d6efd;
+}
+.btn-info:hover {
+  background: #0d6efd;
+  color: white;
+}
+.btn-success {
+  background: #198754;
+  border-radius: 14px;
+  font-weight: 600;
+}
+
+.btn-info {
+  background: transparent;
+  color: #0d6efd;
+  border: 1.5px dashed #0d6efd;
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 10px 0;
+}
+
+.btn-info:hover {
+  background: #0d6efd;
+  color: #fff;
+}
+
+/* Premium feeling in download button */
+.btn-success {
+  background: #198754;
+  border-radius: 14px;
+  font-weight: 600;
+  padding: 11px 0;
+  box-shadow: 0 6px 14px rgba(25,135,84,0.25);
+}
+
+.btn-success:hover {
+  background: #157347;
+}
+
+.extra-tools {
+  margin-top: 16px;
+}
+
+.extra-tools button {
+  margin-bottom: 10px;
+}
+
+
+/*  Sample Download ticket  */
+.ticket-preview {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.ticket-card {
+  width: 350px;
+  background: #f9fbff;
+  border-radius: 20px;
+  padding: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.15);
+}
+
+.ticket-header {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg,#1e88e5,#42a5f5);
+  color: white;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.ticket-header img {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  padding: 4px;
+  margin-right: 10px;
+}
+
+.ticket-header h2 {
+  margin: 0;
+}
+
+.ticket-body {
+  margin-top: 15px;
+}
+
+.ticket-body .row {
+  padding: 6px 0;
+  border-bottom: 1px dashed #ccc;
+}
+
+.fare-box {
+  background: linear-gradient(135deg,#e8f5e9,#fffde7);
+  border-radius: 15px;
+  padding: 12px;
+  margin-top: 15px;
+}
+
+.fare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.fare-box h5 {
+  text-align: center;
+  color: green;
+  margin-top: 10px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.ticket-preview {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.ticket-card {
+  width: 360px;
+  background: #f9fbff;
+  border-radius: 22px;
+  padding: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.15);
+}
+
+.ticket-header {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg,#1e88e5,#42a5f5);
+  color: white;
+  padding: 12px;
+  border-radius: 18px;
+}
+
+.ticket-header img {
+  width: 42px;
+  height: 42px;
+  background: white;
+  border-radius: 50%;
+  padding: 4px;
+  margin-right: 10px;
+}
+
+.ticket-body {
+  margin-top: 14px;
+}
+
+.ticket-body .row {
+  padding: 6px 0;
+  border-bottom: 1px dashed #ccc;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ticket-body .right {
+  margin-left: 10px;
+}
+
+.fare-box {
+  background: linear-gradient(135deg,#e8f5e9,#fffde7);
+  border-radius: 18px;
+  padding: 12px;
+  margin-top: 14px;
+}
+
+.fare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.fare-box h5 {
+  text-align: center;
+  color: green;
+  margin-top: 10px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
+}
+

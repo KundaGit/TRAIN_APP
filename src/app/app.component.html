@@ -1,0 +1,462 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-3 fixed-top">
+    <!-- IRCTC TIME BAR -->
+    <div class="irctc-time-bar">
+      {{ currentDateTime }}
+    </div>
+    <!-- LANGUAGE SWITCHER -->
+
+    <!-- LOGO -->
+
+    <a class="navbar-brand d-flex align-items-center" routerLink="/home">
+      <img src="https://www.kindpng.com/picc/m/217-2172554_irctc-rail-ticket-booking-hd-png-download.png"
+        alt="Train Booking" class="rounded-circle me-2" width="50" height="45" />
+      <span class="brand-text">Railway</span>
+    </a>
+    <div class="top-bar">
+      <!-- <div class="center-wrap">
+    <span class="lang-switch">
+      <span 
+        [class.active]="language === 'en'" 
+        (click)="setLanguage('en')">EN</span>
+      |
+      <span 
+        [class.active]="language === 'hi'" 
+        (click)="setLanguage('hi')">हिंदी</span>
+    </span>
+
+
+  </div> -->
+    </div>
+
+
+    <!-- TOGGLER (MOBILE) -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <!-- NAV ITEMS -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+
+        <!-- Contacts Us -->
+        <a href="javascript:void(0)" class="nav-link text-white" data-bs-toggle="modal"
+          data-bs-target="#irctcContactModal">
+          CONTACT US
+        </a>
+        <!-- TRAINS -->
+
+        <!-- <li class="nav-item position-relative">
+          <a class="nav-link text-white" (click)="toggleTrainPanel()">TRAINS</a>
+          <div class="train-panel" *ngIf="showTrainPanel">
+            <div class="train-item" *ngFor="let train of trainList" [class.active]="train === selectedTrain"
+              (click)="onTrainSelect(train)">
+              🚆 {{ train }}
+            </div>
+          </div>
+        </li> -->
+ <li class="nav-item position-relative">
+  <a class="nav-link text-white" (click)="toggleTrainPanel()">TRAINS</a>
+
+  <!-- Backdrop -->
+  <div class="backdrop"
+       *ngIf="showTrainPanel"
+       (click)="showTrainPanel = false">
+  </div>
+
+  <!-- Train Panel -->
+  <div class="train-panel" *ngIf="showTrainPanel">
+    <div class="train-item"
+         *ngFor="let train of trainList"
+         [class.active]="train === selectedTrain"
+         (click)="onTrainSelect(train)">
+      🚆 {{ train }}
+    </div>
+  </div>
+</li>
+
+
+        <!-- LOGIN / REGISTER -->
+        @if (loggedInUser.passengerID == 0) {
+        <li class="nav-item">
+          <button class="btn btn-success mt-2 mt-lg-0 me-lg-2" (click)="openLogin()">
+            Login
+          </button>
+
+        </li>
+
+        <li class="nav-item">
+          <button class="btn btn-warning mt-2 mt-lg-0" (click)="openRegister()">
+            Register
+          </button>
+        </li>
+        } @else {
+        <li class="nav-item">
+          <!-- <button class="user-pill mt-2 mt-lg-0 me-lg-2" (click)="toggleUserCard()">
+            👤 {{ loggedInUser.firstName }}
+          </button> -->
+          <button class="btn btn-success user-btn"
+        (click)="$event.stopPropagation(); toggleUserCard()">
+  👤 {{ loggedInUser.firstName }}
+</button>
+          <!-- User details Card -->
+          <div class="user-card" *ngIf="showUserCard" (click)="$event.stopPropagation()">
+         
+            <div class="user-header side-header">
+  <label class="avatar upload-avatar big-left-avatar">
+    <img *ngIf="profileImage" [src]="profileImage" />
+    <span *ngIf="!profileImage">👤</span>
+    <input type="file" accept="image/*" hidden (change)="onImageSelect($event)" />
+  </label>
+
+  <div class="user-text">
+    <h6>{{ loggedInUser.firstName }} {{ loggedInUser.lastName }}</h6>
+    <span class="user-tag">Logged in</span>
+  </div>
+</div>
+
+            <div class="user-info">
+              <p><b>ID:</b>{{ loggedInUser.passengerID }}</p>
+              <p><b>Email:</b> {{ loggedInUser.email }}</p>
+              <p><b>Phone:</b> {{ loggedInUser.phone }}</p>
+              <!-- <p><b>Password:</b>****</p> -->
+
+              <p class="password-row">
+                <b>Password:</b>
+                {{ showPassword ? loggedInUser.password : maskPassword(loggedInUser.password) }}
+                <span class="eye-icon" (click)="togglePassword()">
+                  {{ showPassword ? '🙈' : '👁️' }}
+                </span>
+              </p>
+            </div>
+
+            <button class="btn-close-card" (click)="toggleUserCard()">Close</button>
+          </div>
+
+        </li>
+
+        <li class="nav-item">
+          <button class="btn btn-warning mt-2 mt-lg-0" (click)="onLogout()">
+            Logout
+          </button>
+        </li>
+        }
+
+      </ul>
+    </div>
+
+  </nav>
+</header>
+<!-- IRCTC CONTACT US MODAL -->
+<div class="modal fade" id="irctcContactModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content irctc-contact-modal">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">You may contact us</h5>
+        <!-- <button type="button" class="" data-bs-dismiss="modal">✕</button> -->
+        <button class="close-btn" data-bs-dismiss="modal">✕</button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <p>
+          Customers can now submit and track queries through the enhanced online
+          IRCTC Enquiry interface:
+          <br />
+          <a href="https://equery.irctc.co.in/" target="_blank">
+            https://equery.irctc.co.in/
+          </a>
+        </p>
+
+        <p>
+          In case a passenger faces any problem in cancelling an E-Ticket online
+          or TDR filing, write to:
+          <br />
+          <!-- <a href="mailto:eticketsirctc.co.in">eticketsirctc.co.in</a> -->
+        </p>
+
+        <p>
+          📞 <strong>Dial 14646 (Within India)</strong>
+        </p>
+
+        <p>
+          Support is available in the following languages:
+          Hindi, English, Punjabi, Bengali, Assamese, Odia, Marathi, Gujarati,
+          Tamil, Telugu, Kannada and Malayalam.
+        </p>
+
+        <hr />
+
+        <p><strong>Customer Support (Outside India):</strong></p>
+        <p>
+          📞 Call:
+          <a href="tel:+918044647999">+91-8044647999</a> /
+          <a href="tel:+918035734999">+91-8035734999</a>
+        </p>
+
+        <p>
+          For queries related to iMudra wallet:
+          <br />
+          <a href="https://equery.irctc.co.in/" target="_blank">
+            https://equery.irctc.co.in/
+          </a>
+        </p>
+
+        <hr />
+
+        <p><strong>For complaint regarding IRCTC Loyalty credit card</strong></p>
+        <p>
+          <strong>IRCTC-SBI</strong><br />
+          Contact Number:
+          <a href="tel:01243902112">0124-39021212</a> /
+          <a href="tel:18001801295">18001801295</a><br />
+          Email:
+          <!-- <a href="mailto:customercare@sbicard.com">
+            customercare@sbicard.com
+          </a> -->
+        </p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<router-outlet></router-outlet>
+
+<!-- LOGIN MODAL -->
+<div class="modal-backdrop" *ngIf="showLogin">
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content neon-glass">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Login</h5>
+        <button type="button" class="close-btn" (click)="closeLogin()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-floating">
+          <input type="text" [(ngModel)]="loginObj.phone" class="form-control" placeholder="Phone">
+          <label>Phone</label>
+          <i class="icon fas fa-phone"></i>
+        </div>
+        <div class="form-floating mt-3">
+          <input type="password" [(ngModel)]="loginObj.password" class="form-control" placeholder="Password">
+          <label>Password</label>
+          <i class="icon fas fa-lock"></i>
+        </div>
+
+        <div class="text-center mt-3">
+          <small>Don't have an account? <a (click)="switchToRegister()" class="switch-link">Register</a></small>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-gradient" (click)="closeLogin()">Close</button>
+        <button class="btn btn-gradient spark" (click)="onLogin()">Login</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div class="modal-backdrop" *ngIf="showRegister">
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content neon-glass">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Register</h5>
+        <button type="button" class="close-btn" (click)="closeRegister()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-floating mb-2">
+
+          <input type="text" [(ngModel)]="registerObj.firstName" class="form-control" placeholder="First Name">
+          <label>First Name</label>
+          <i class="icon fas fa-user"></i>
+        </div>
+        <div class="form-floating mb-2">
+          <input type="text" [(ngModel)]="registerObj.lastName" class="form-control" placeholder="Last Name">
+          <label>Last Name</label>
+          <i class="icon fas fa-user"></i>
+        </div>
+        <div class="form-floating mb-2">
+          <input type="email" [(ngModel)]="registerObj.email" class="form-control" placeholder="Email">
+          <label>Email</label>
+          <i class="icon fas fa-envelope"></i>
+        </div>
+        <div class="form-floating mb-2">
+          <input type="text" [(ngModel)]="registerObj.phone" class="form-control" placeholder="Mobile">
+          <label>Mobile</label>
+          <i class="icon fas fa-phone"></i>
+        </div>
+        <div class="form-floating mb-2">
+          <input type="password" [(ngModel)]="registerObj.password" class="form-control" placeholder="Password">
+          <label>Password</label>
+          <i class="icon fas fa-lock"></i>
+        </div>
+
+        <div class="text-center mt-2">
+          <small>Already have an account? <a (click)="switchToLogin()" class="switch-link">Login</a></small>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-gradient" (click)="closeRegister()">Close</button>
+        <button class="btn btn-gradient spark" (click)="onRegister()">Register</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+&nbsp;&nbsp;
+
+
+<div class="lux-footer-wrapper">
+  <div class="social-footer">
+    <div class="social-text">
+      Get Connected with us on social networks
+    </div>
+
+    <div class="social-icons">
+      <a href="https://www.facebook.com/kundan.rajak.182/" class="icon facebook" title="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.youtube.com/@SimpleKundanYT" class="icon youtube" title="YouTube">
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a href="#" class="icon instagram" title="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.linkedin.com/in/kundan-rajak1/" class="icon linkedin" title="LinkedIn">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+      <a href="#" class="icon telegram" title="Telegram">
+        <i class="fab fa-telegram-plane"></i>
+      </a>
+      <a href="#" class="icon pinterest" title="Pinterest">
+        <i class="fab fa-pinterest-p"></i>
+      </a>
+      <a href="#" class="icon tumblr" title="Tumblr">
+        <i class="fab fa-tumblr"></i>
+      </a>
+      <a href="#" class="icon snapchat" title="Snapchat">
+        <i class="fab fa-snapchat-ghost"></i>
+      </a>
+      <a href="#" class="icon twitter" title="Twitter">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<footer class="lux-footer">
+
+
+  <div class="lux-top-glow"></div>
+
+  <div class="lux-content">
+
+    <!-- LEFT : BRAND -->
+    <div class="lux-brand">
+      <div class="lux-logo">🚆</div>
+      <h3>Kundan AI Studio</h3>
+      <p>Next-Gen Railway Ticket Booking Experience</p>
+    </div>
+
+    <!-- CENTER : TRUST -->
+    <div class="lux-trust">
+      <div class="trust-badge">🔒 100% Secure Payments</div>
+      <div class="trust-badge">⚡ Fast Booking Engine</div>
+      <div class="trust-badge">✅ Verified Trains & Routes</div>
+    </div>
+
+    <!-- RIGHT : META -->
+    <div class="lux-meta">
+      <span>© 2026</span>
+      <span>All Rights Reserved</span>
+      <span class="made">Made with ❤️ in India</span>
+    </div>
+
+  </div>
+  <!-- Moving Train Light -->
+  <div class="train-track">
+    <span class="train-light"></span>
+  </div>
+
+
+</footer>
+<footer class="irctc-footer">
+
+  <!-- PAYMENT STRIP -->
+  <div class="payment-strip">
+    <img src="assets/payments/verisign.png" alt="Verisign">
+    <img src="assets/payments/mastercard.png" alt="MasterCard">
+    <img src="assets/payments/visa.png" alt="Visa">
+    <img src="assets/payments/Rupay.png" alt="RuPay">
+    <img src="assets/payments/crisis.jpg" alt="CRIS">
+  </div>
+
+  <!-- COPYRIGHT -->
+  <div class="copyright">
+    Copyright © 2026 www.irctc.co.in. All Rights Reserved |
+    Designed and Hosted by <b>Kundan</b>
+  </div>
+  <!-- <div class="chatbot-widget"> -->
+
+
+
+  <!-- AI CHAT BOX -->
+
+  <!-- FLOATING CHATBOT -->
+  <div class="askdisha-chat" [class.open]="isChatOpen">
+
+    <!-- HEADER -->
+    <div class="chat-header">
+      <div class="header-left">
+        <img src="assets/payments/fevicon.png" alt="AI" />
+        <div>
+          <div class="title">AskRail AI</div>
+          <div class="subtitle">Next-Gen Ticket Assistant</div>
+        </div>
+      </div>
+
+      <button class="close-btn" (click)="isChatOpen=false">✕</button>
+    </div>
+
+    <!-- BODY -->
+    <div class="chat-body">
+      <div class="bot-msg">
+        👋 Hi! I can help you with train search, booking & rules.
+      </div>
+
+      <div *ngFor="let m of messages" [class.user-msg]="m.from==='user'" [class.bot-msg]="m.from==='bot'">
+        {{ m.text }}
+      </div>
+    </div>
+
+    <!-- INPUT -->
+    <div class="chat-footer">
+      <input [(ngModel)]="userText" placeholder="Type your question..." (keyup.enter)="sendMessage()" />
+
+      <button (click)="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <!-- FLOAT BUTTON -->
+  <button class="chat-fab" (click)="isChatOpen=!isChatOpen">
+    🤖
+  </button>
+
+
+
+
+</footer>

@@ -1,0 +1,485 @@
+<!-- SEARCH BAR -->
+
+<div class="search-header bg-primary text-white py-3 mb-3">
+  <div class="container">
+    <h4 class="mb-0">Search Trains</h4>
+  </div>
+</div>
+<!-- <div class="search-wrapper">
+
+  <div class="container">
+    <div class="row g-3">
+
+      <div class="col-md-3">
+        <select class="form-select">
+          <option>Pune</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <select class="form-select">
+          <option>Nagpur</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <input type="date" class="form-control" />
+      </div>
+
+      <div class="col-md-3">
+        <button class="btn btn-primary w-100">
+          Modify Search
+        </button>
+      </div>
+      
+
+    </div>
+  </div>
+</div> -->
+
+<div class="search-wrapper">
+  <div class="container">
+    <div class="row g-3">
+
+      <div class="col-md-3">
+        <select class="form-select" [(ngModel)]="fromStationId" name="fromStationId">
+          <option value="0">From Station</option>
+          @for(item of stationList; track $index){
+          <option [value]="item.stationID">{{ item.stationName }}</option>
+          }
+        </select>
+
+      </div>
+
+      <div class="col-md-3">
+        <select class="form-select" [(ngModel)]="toStationId" name="toStationId">
+          <option value="0">To Station</option>
+          @for(item of stationList; track $index){
+          <option [value]="item.stationID">{{ item.stationName }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <input type="date" class="form-control" [(ngModel)]="dateOfJourney" name="dateOfJourney" />
+      </div>
+
+      <div class="col-md-3">
+        <button class="btn btn-primary w-100" (click)="modifySearch()">
+          Modify Search
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- RESULT TEXT -->
+<div class="container mt-3">
+  <h6>
+    <b>4 Result Found For Pune to Nagpur</b> on 12-12-2023
+  </h6>
+
+  <!-- TRAIN BOXES -->
+  <div class="row mt-3">
+
+    <!-- BOX 1 -->
+    <div class="col-md-6 mb-4">
+      <div class="train-box">
+        <div class="train-title">NGP HUMSAFAR EX (22141)</div>
+        <div class="train-content">
+          <div class="time-row">
+            <div>
+              <b>22:00</b><br />
+              PUNE JN<br />
+              Thu, 30 Nov
+            </div>
+
+            <div class="duration">
+              <b>15:05 hrs</b>
+            </div>
+
+            <div>
+              <b>13:05</b><br />
+              NAGPUR<br />
+              Fri, 01 Dec
+            </div>
+          </div>
+
+          <div class="action-btns">
+            <button class="btn btn-success btn-sm" (click)="openBooking()">Book Now</button>
+            <button class="btn btn-secondary btn-sm ms-2" (click)="openBooking()">
+              Check Availability
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- BOX 2 -->
+    <div class="col-md-6 mb-4">
+      <div class="train-box">
+        <div class="train-title"> NGP HUMSAFAR EX (22141)</div>
+        <div class="train-content">
+          <div class="time-row">
+            <div>
+              <b>22:00</b><br />
+              PUNE JN<br />
+              Thu, 30 Nov
+            </div>
+
+            <div class="duration">
+              <b>15:05 hrs</b>
+            </div>
+
+            <div>
+              <b>13:05</b><br />
+              NAGPUR<br />
+              Fri, 01 Dec
+            </div>
+          </div>
+
+          <div class="action-btns">
+            <button class="btn btn-success btn-sm">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOX 3 -->
+    <div class="col-md-6 mb-4">
+      <div class="train-box">
+        <div class="train-title">NGP HUMSAFAR EX (22141)</div>
+        <div class="train-content">
+          <div class="time-row">
+            <div>
+              <b>22:00</b><br />
+              PUNE JN<br />
+              Thu, 30 Nov
+            </div>
+
+            <div class="duration">
+              <b>15:05 hrs</b>
+            </div>
+
+            <div>
+              <b>13:05</b><br />
+              NAGPUR<br />
+              Fri, 01 Dec
+            </div>
+          </div>
+
+          <div class="action-btns">
+            <button class="btn btn-success btn-sm">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOX 4 -->
+    <div class="col-md-6 mb-4">
+      <div class="train-box">
+        <div class="train-title">NGP HUMSAFAR EX (22141)</div>
+        <div class="train-content">
+          <div class="time-row">
+            <div>
+              <b>22:00</b><br />
+              PUNE JN<br />
+              Thu, 30 Nov
+            </div>
+
+            <div class="duration">
+              <b>15:05 hrs</b>
+            </div>
+
+            <div>
+              <b>13:05</b><br />
+              NAGPUR<br />
+              Fri, 01 Dec
+            </div>
+          </div>
+
+          <div class="action-btns">
+            <button class="btn btn-success btn-sm">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- BOX 5 -->
+    <div class="col-md-6 mb-4">
+      <div class="train-box">
+        <div class="train-title">NGP HUMSAFAR EX (22141)</div>
+        <div class="train-content">
+          <div class="time-row">
+            <div>
+              <b>22:00</b><br />
+              PUNE JN<br />
+              Thu, 30 Nov
+            </div>
+
+            <div class="duration">
+              <b>15:05 hrs</b>
+            </div>
+
+            <div>
+              <b>13:05</b><br />
+              NAGPUR<br />
+              Fri, 01 Dec
+            </div>
+          </div>
+
+          <div class="action-btns">
+            <button class="btn btn-success btn-sm">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- BOX 6 -->
+    <div class="col-md-6 mb-4">
+      <div class="train-box">
+        <div class="train-title">NGP HUMSAFAR EX (22141)</div>
+        <div class="train-content">
+          <div class="time-row">
+            <div>
+              <b>22:00</b><br />
+              PUNE JN<br />
+              Thu, 30 Nov
+            </div>
+
+            <div class="duration">
+              <b>15:05 hrs</b>
+            </div>
+
+            <div>
+              <b>13:05</b><br />
+              NAGPUR<br />
+              Fri, 01 Dec
+            </div>
+          </div>
+
+          <div class="action-btns">
+            <button class="btn btn-success btn-sm" (click)="openBooking()">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BOOKING MODAL -->
+
+<div class="custom-backdrop" *ngIf="showBooking">
+  <div class="modal-card">
+
+    <div class="modal-header">
+      <h4>Book Ticket</h4>
+      <button (click)="closeBooking()">✖</button>
+    </div>
+
+
+
+    <div class="train-info">
+      <b>Train:</b> Pune Express &nbsp;&nbsp;
+      <b>Time:</b> 14:30
+    </div>
+
+    <div class="form-row">
+      <input type="text" placeholder="Passenger Name" [(ngModel)]="pName" maxlength="30" />
+      <!-- <input type="number" placeholder="Age" [(ngModel)]="pAge" [maxlength]="3" />
+        -->
+      <form>
+  <input
+    type="number"
+    placeholder="Age"
+    name="age"
+    [(ngModel)]="pAge"
+    min="0"
+    max="150"
+    oninput="
+      if(this.value>150) this.value=150;
+      if(this.value<0) this.value=0;
+    "
+  />
+</form>
+
+      <button class="btn btn-primary btn-sm" (click)="addPassenger()">Add</button>
+    </div>
+
+    <table class="table table-bordered mt-2" *ngIf="passengers.length">
+      <thead>
+        <tr>
+          <th>Sr</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of passengers; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{p.name}}</td>
+          <td>{{p.age}}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="removePassenger(i)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="modal-footer">
+      <button class="btn btn-danger" (click)="closeBooking()">Close</button>
+      <button class="btn btn-success" [disabled]="!passengers.length" (click)="gotToPayment()">
+        Book Ticket
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!--Payment modal -->
+<!-- <div class="custom-backdrop" *ngIf="showPayment">
+  <div class="modal-card">
+
+    <div class="modal-header">
+      <h4>Payment</h4>
+      <button (click)="closePayment()">✖</button>
+    </div>
+
+    <div class="train-info">
+      <b>Passengers:</b> {{passengers.length}} |
+      <b>Total:</b> ₹{{totalAmount}}
+    </div>
+
+    <div class="payment-options">
+      <label><input type="radio" name="pay" [(ngModel)]="paymentMethod" value="UPI"> UPI</label><br>
+      <label><input type="radio" name="pay" [(ngModel)]="paymentMethod" value="CARD"> Card</label><br>
+      <label><input type="radio" name="pay" [(ngModel)]="paymentMethod" value="NET"> Net Banking</label>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" (click)="closePayment()">Back</button>
+      <button class="btn btn-success" 
+              [disabled]="!paymentMethod"
+              (click)="payNow()">
+        Pay Now
+      </button>
+    </div>
+
+  </div>
+</div> -->
+
+<div class="custom-backdrop" *ngIf="showPayment">
+  <div class="modal-card payment-ui">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <h4>Payment</h4>
+      <button (click)="closePayment()">✖</button>
+    </div>
+
+    <!-- Summary -->
+    <!-- <div class="pay-summary">
+      <p>
+        <b>From:</b> {{ getStationName(fromStationId) }} →
+        <b>To:</b> {{ getStationName(toStationId) }}
+      </p>
+      <p><b>Date:</b> {{dateOfJourney}}</p>
+      <h3>PNR: {{pnr}}</h3>
+      <h2>Estimated Fare: ₹{{totalAmount}}</h2>
+    </div> -->
+    <div class="pay-summary">
+      <p><b>From:</b> {{fromStationName}} → <b>To:</b> {{toStationName}}</p>
+      <p><b>Date:</b> {{dateOfJourney}}</p>
+
+      <div class="pnr-box">
+        PNR: <span>{{pnr}}</span>
+      </div>
+
+      <div class="fare-box">
+        Estimated Fare: ₹ {{totalAmount}}
+      </div>
+    </div>
+    <!-- Proceed Button -->
+    <button class="proceed-btn">
+      💳 Proceed to Pay
+    </button>
+
+    <!-- Payment Box -->
+    <div class="pay-box">
+      <h5>Select Payment Method</h5>
+
+      <label class="upi-row">
+        <input type="radio" name="pay" [(ngModel)]="paymentMethod" value="UPI" (change)="openUpiQr()">
+
+        <span>UPI</span>
+
+        <img *ngIf="paymentMethod=='UPI' && upiQr" [src]="upiQr" class="upi-qr-small">
+      </label>
+
+
+      <label>
+        <input type="radio" name="pay" [(ngModel)]="paymentMethod" value="CARD">
+        Card
+      </label>
+
+      <label>
+        <input type="radio" name="pay" [(ngModel)]="paymentMethod" value="NET">
+        Net Banking
+      </label>
+      <!-- !-- UPI section -->
+
+
+
+
+
+
+
+      <!-- Card section -->
+      <div *ngIf="paymentMethod=='CARD'" class="pay-section">
+
+        <input type="text" class="form-control" maxlength="12" appOnlyNumber [(ngModel)]="cardNumber" placeholder="Enter the Card Number">
+        <small *ngIf="cardNumber && cardNumber.length < 12" style="color:red;">
+          Card Number Incomplete </small>
+        <div class="row mt-2">
+          <div class="col">
+            <input type="text" class="form-control" placeholder="MM/YY" [(ngModel)]="cardExpiry" maxlength="5"
+              (input)="onExpiryInput()">
+          </div>
+          <div class="col">
+            <input type="password" class="form-control" placeholder="CVV" [(ngModel)]="cardCvv" maxlength="3"
+              appOnlyNumber>
+          </div>
+        </div>
+      </div>
+      <!-- Net Banking section -->
+      <div *ngIf="paymentMethod=='NET'" class="pay-section">
+        <select class="form-select" [(ngModel)]="selectedBank">
+          <option value="">Select Bank</option>
+          <option value="SBI">SBI</option>
+          <option value="HDFC">HDFC</option>
+          <option value="ICICI">ICICI</option>
+          <option value="AXIS">AXIS</option>
+        </select>
+      </div>
+
+
+      <button class="pay-now" [disabled]="!canPay() || isPaying" (click)="payNow()">
+        <span *ngIf="!isPaying">🔒 Pay Now</span>
+        <span *ngIf="isPaying">Processing...</span>
+      </button>
+      <div *ngIf="paymentSuccess" class="success-box">
+        <h4>✅ Payment Successful!</h4>
+        <p>Transaction ID: <b>{{txnId}}</b></p>
+        <button class="btn btn-success" (click)="downloadTicket()">
+          ⬇ Download Ticket (PDF)
+        </button>
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
