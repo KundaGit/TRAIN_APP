@@ -1,17 +1,3 @@
-// import { HttpClient } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class TrainService {
-// apiUrl="https://freeapi.gerasim.in/api/TrainApp/"
-//   constructor(private http:HttpClient) { }
-
-//   getAllStations(){
-//     return this.http.get(`${this.apiUrl}GetAllStations`);
-//   }
-// }
 
 
 import { HttpClient } from '@angular/common/http';
@@ -24,13 +10,17 @@ import { APIResponse, Customer } from '../model/train';
 export class TrainService {
  
 
-  apiUrl = "/api/TrainApp/";
+  // apiUrl = "/api/TrainApp/";
+  // apiUrl = "https://train-backend.onrender.com/api/TrainApp/";
+  apiUrl = "https://train-backend-hh0n.onrender.com/api/TrainApp/";
+
+
 
   constructor(private http: HttpClient) { }
 
   getAllStations() {
     return this.http.get(`${this.apiUrl}GetAllStations`);
-    
+
   }
 
   getTrainSearch(from: number, to: number, date: string) {
