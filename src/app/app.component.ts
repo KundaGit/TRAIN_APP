@@ -170,44 +170,43 @@ export class AppComponent {
   userText = '';
   messages: any[] = [];
 
-  OPENAI_KEY = environment.OPENAI_KEY;
+  // OPENAI_KEY = environment.OPENAI_KEY;
 
   toggleChat() {
     this.isChatOpen = !this.isChatOpen;
   }
 
   // chatbot function
-  sendMessage() {
-    if (!this.userText.trim()) return;
+sendMessage() {
+  if (!this.userText.trim()) return;
 
-    this.messages.push({ from: 'user', text: this.userText });
+  // user message UI me
+  this.messages.push({ from: 'user', text: this.userText });
 
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${this.OPENAI_KEY}`,
-    });
-
-    const body = {
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: 'You are an IRCTC train booking assistant' },
-        { role: 'user', content: this.userText },
-      ],
-    };
-
-    this.http
-      .post<any>('https://api.openai.com/v1/chat/completions', body, {
-        headers,
-      })
-      .subscribe((res) => {
-        this.messages.push({
-          from: 'bot',
-          text: res.choices[0].message.content,
-        });
+  // backend ko call
+  this.http.post<any>(
+    'http://localhost:3000/api/chat',   // 🔹 local test
+    // 'https://train-backend.onrender.com/api/chat', // 🔹 Render (prod)
+    { message: this.userText }
+  ).subscribe({
+    next: (res) => {
+      this.messages.push({
+        from: 'bot',
+        text: res.choices[0].message.content
       });
+    },
+    error: () => {
+      this.messages.push({
+        from: 'bot',
+        text: 'Sorry, server error.'
+      });
+    }
+  });
 
-    this.userText = '';
-  }
+  this.userText = '';
+}
+
+
   // User user Details
   showUserCard = false;
 
