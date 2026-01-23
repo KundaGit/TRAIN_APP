@@ -172,9 +172,18 @@ export class AppComponent {
 
   // OPENAI_KEY = environment.OPENAI_KEY;
 
-  toggleChat() {
-    this.isChatOpen = !this.isChatOpen;
+toggleChat() {
+  this.isChatOpen = !this.isChatOpen;
+
+  if (this.isChatOpen && this.messages.length === 0) {
+    this.messages.push({
+      from: 'bot',
+      text: "Hi 👋 I’m AskRail AI, your railway assistant, created by Kundan Rajak. I can help you with train booking, PNR status, Tatkal rules, fares, and travel guidance."
+    });
   }
+}
+
+
 
   // chatbot function
 sendMessage() {
@@ -185,8 +194,8 @@ sendMessage() {
 
   // backend ko call
   this.http.post<any>(
-    // 'http://localhost:3000/api/chat',   // 🔹 local test
-    'https://train-backend.onrender.com/api/chat', 
+    'http://localhost:3000/api/chat',   // 🔹 local test
+    // 'https://train-backend.onrender.com/api/chat', 
     { message: this.userText }
   ).subscribe({
     next: (res) => {
@@ -198,7 +207,7 @@ sendMessage() {
     error: () => {
       this.messages.push({
         from: 'bot',
-        text: 'Sorry, server error.'
+        text: 'Sorry, You Internet is slow.'
       });
     }
   });
