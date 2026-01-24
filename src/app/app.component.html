@@ -442,12 +442,24 @@
         {{ m.text }}
       </div>
     </div>
+     <!-- 🎙️ LISTENING OVERLAY (YAHAN ADD KARO 👇) -->
+  <div class="listening-overlay" *ngIf="isListening">
+    <div class="mic-circle">
+       <span class="wave"></span>
+  <span class="wave"></span>
+  <span class="wave"></span>
+      <div class="mic-icon">🎤</div>
+    </div>
+    <div class="listening-text">Listening...</div>
+    <div class="hint-text">Try saying: "I want to book a ticket"</div>
+  </div>
 
     <!-- INPUT -->
     <div class="chat-footer">
-      <input [(ngModel)]="userText" placeholder="Type your question..." (keyup.enter)="sendMessage()" />
-
-      <button (click)="sendMessage()">➤</button>
+      
+      <input [(ngModel)]="userText" placeholder="Type or speak your question..." (keyup.enter)="sendMessage()" />
+      <button *ngIf="!userText" class="mic-btn" [class.pulse]="!isListening" (click)="startVoice()">🎤</button>
+      <button *ngIf="userText" class="send-btn" (click)="sendMessage()">➤</button>
     </div>
   </div>
 

@@ -215,6 +215,51 @@ sendMessage() {
   this.userText = '';
 }
 
+// Voice Recognition
+isListening=false;
+recognition: any;
+startVoice() {
+  const SpeechRecognition =
+    (window as any).SpeechRecognition ||
+    (window as any).webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert("Voice recognition not supported in this browser.");
+    return;
+  }
+
+  this.recognition = new SpeechRecognition();
+  this.recognition.lang = 'en-IN'; // hi-IN if Hindi
+  this.recognition.interimResults = false;
+  this.recognition.continuous = false;
+
+  this.isListening = true; // 🔥 overlay ON
+  this.recognition.start();
+
+  // ✅ RESULT
+  this.recognition.onresult = (event: any) => {
+    const transcript = event.results[0][0].transcript;
+    this.userText = transcript;
+    this.isListening = false; // overlay OFF
+    this.recognition.stop();
+    this.sendMessage();
+  };
+
+  // ✅ ERROR HANDLER (IMPORTANT)
+  this.recognition.onerror = (event: any) => {
+    console.error('Voice error:', event);
+    this.isListening = false;
+    this.recognition.stop();
+  };
+
+  // ✅ END HANDLER (MOST IMPORTANT)
+  this.recognition.onend = () => {
+    this.isListening = false;
+  };
+}
+
+
+
 
   // User user Details
   showUserCard = false;
