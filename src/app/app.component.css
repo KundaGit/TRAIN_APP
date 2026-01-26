@@ -1323,4 +1323,103 @@ body {
 .askdisha-chat.listening .chat-footer {
   display: none;
 }
+/* Mic for mobile */
+/* 🔊 WhatsApp-style voice button */
+.wa-voice-btn {
+  background: #25d366;           /* WhatsApp green */
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  margin-left: 6px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+  color: #fff;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.wa-voice-btn:active {
+  transform: scale(0.92);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+/* 📱 MOBILE ONLY (hide on laptop/desktop) */
+@media (min-width: 768px) {
+  .wa-voice-btn {
+    display: none;
+  }
+}
+
+/* Register */
+
+.form-floating {
+  position: relative;
+}
+
+/* error holder – space sirf jab error ho */
+.error-holder {
+  margin-top: 1px;
+}
+
+.error-holder:empty {
+  display: none;
+}
+
+/* error text – subtle & compact */
+.error-holder small {
+  display: block;
+  font-size: 10px;
+  line-height: 11px;
+  color: rgba(255, 120, 120, 0.85);
+}
+
+/* invalid input – soft red */
+.form-control.ng-invalid.ng-touched {
+  border-color: rgba(255, 90, 90, 0.55);
+  box-shadow: 0 0 4px rgba(255, 90, 90, 0.25);
+}
+
+/* icon alignment */
+.form-floating .icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.6);
+  pointer-events: none;
+}
+
+/* Modal footer fine-tuning */
+.modal-footer {
+  padding-top: 4px;
+  padding-bottom: 8px;
+  margin-top: -16px;      /* ⬆️ aur upar */
+  padding-right: 20px;     /* ➡️ thoda right */
+  border-top: none;
+  display: flex;
+  justify-content: flex-end; /* buttons right side */
+}
+
+/* Buttons ke beech space */
+.modal-footer .btn {
+  margin-left: 10px;       /* 👈 gap between Close & Register */
+}
+
+/* Optional: buttons thode compact */
+.modal-footer .btn {
+  padding: 6px 18px;
+  font-size: 14px;
+}
+
+/* Login text ko thoda upar lao */
+.modal-body .text-center {
+  margin-top: 0px !important;
+}
 

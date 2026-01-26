@@ -230,43 +230,107 @@
 <router-outlet></router-outlet>
 
 <!-- LOGIN MODAL -->
+
 <div class="modal-backdrop" *ngIf="showLogin">
   <div class="modal-dialog modal-md modal-dialog-centered">
     <div class="modal-content neon-glass">
 
+      <!-- HEADER -->
       <div class="modal-header">
         <h5 class="modal-title">Login</h5>
         <button type="button" class="close-btn" (click)="closeLogin()">✕</button>
       </div>
 
-      <div class="modal-body">
-        <div class="form-floating">
-          <input type="text" [(ngModel)]="loginObj.phone" class="form-control" placeholder="Phone">
-          <label>Phone</label>
-          <i class="icon fas fa-phone"></i>
-        </div>
-        <div class="form-floating mt-3">
-          <input type="password" [(ngModel)]="loginObj.password" class="form-control" placeholder="Password">
-          <label>Password</label>
-          <i class="icon fas fa-lock"></i>
+      <form #loginForm="ngForm" novalidate>
+        <div class="modal-body">
+
+          <!-- Phone -->
+          <div class="form-floating mb-2">
+            <input
+              type="tel"
+              class="form-control"
+              placeholder="Phone"
+              name="phone"
+              [(ngModel)]="loginObj.phone"
+              required
+            
+              inputmode="numeric"
+              maxlength="10"
+              autocomplete="off"
+              (keypress)="allowOnlyNumbers($event)"
+              #phone="ngModel">
+
+            <label>Phone</label>
+            <i class="icon fas fa-phone"></i>
+
+            <div class="error-holder">
+              <small *ngIf="phone.invalid && phone.touched">
+                Enter valid 10-digit mobile number
+              </small>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-floating mb-2">
+            <input
+              [type]="showLoginPassword ? 'text' : 'password'"
+              class="form-control"
+              placeholder="Password"
+              name="password"
+              [(ngModel)]="loginObj.password"
+              required
+              minlength="6"
+              maxlength="15"
+              autocomplete="new-password"
+              #password="ngModel">
+
+            <label>Password</label>
+
+            <!-- clickable eye icon -->
+            <i class="icon fas"
+               [ngClass]="showLoginPassword ? 'fa-eye-slash' : 'fa-eye'"
+               (click)="toggleLoginPassword()"
+               style="cursor:pointer; pointer-events:auto;"></i>
+
+            <div class="error-holder">
+              <small *ngIf="password.invalid && password.touched">
+                Password is required
+              </small>
+            </div>
+          </div>
+
+          <div class="text-center mt-2">
+            <small>
+              Don't have an account?
+              <a (click)="switchToRegister()" class="switch-link">Register</a>
+            </small>
+          </div>
+
         </div>
 
-        <div class="text-center mt-3">
-          <small>Don't have an account? <a (click)="switchToRegister()" class="switch-link">Register</a></small>
-        </div>
-      </div>
+        <!-- FOOTER -->
+        <div class="modal-footer">
+          <button type="button"
+                  class="btn btn-gradient"
+                  (click)="closeLogin()">
+            Close
+          </button>
 
-      <div class="modal-footer">
-        <button class="btn btn-gradient" (click)="closeLogin()">Close</button>
-        <button class="btn btn-gradient spark" (click)="onLogin()">Login</button>
-      </div>
+          <button type="button"
+                  class="btn btn-gradient spark"
+                  [disabled]="loginForm.invalid"
+                  (click)="onLogin()">
+            Login
+          </button>
+        </div>
+      </form>
 
     </div>
   </div>
 </div>
 
 <!-- REGISTER MODAL -->
-<div class="modal-backdrop" *ngIf="showRegister">
+<!-- <div class="modal-backdrop" *ngIf="showRegister">
   <div class="modal-dialog modal-md modal-dialog-centered">
     <div class="modal-content neon-glass">
 
@@ -315,7 +379,181 @@
 
     </div>
   </div>
+</div> -->
+<div class="modal-backdrop" *ngIf="showRegister">
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content neon-glass">
+
+      <!-- HEADER -->
+      <div class="modal-header">
+        <h5 class="modal-title">Register</h5>
+        <button type="button" class="close-btn" (click)="closeRegister()">✕</button>
+      </div>
+
+      <form #registerForm="ngForm" novalidate>
+        <div class="modal-body">
+
+          <!-- First Name -->
+          <div class="form-floating mb-2">
+            <input type="text"
+                   class="form-control"
+                   placeholder="First Name"
+                   name="firstName"
+                   [(ngModel)]="registerObj.firstName"
+                   required
+                   minlength="2"
+                   maxlength="40"
+                   autocomplete="off"
+                   autocorrect="off"
+                   autocapitalize="off"
+                   spellcheck="false"
+                   #firstName="ngModel">
+            <label>First Name</label>
+            <i class="icon fas fa-user"></i>
+
+            <div class="error-holder">
+              <small *ngIf="firstName.invalid && firstName.touched">
+                First name is required (min 2 chars)
+              </small>
+            </div>
+          </div>
+
+          <!-- Last Name -->
+          <div class="form-floating mb-2">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Last Name"
+                   name="lastName"
+                   [(ngModel)]="registerObj.lastName"
+                   required
+                   autocomplete="off"
+                   autocorrect="off"
+                   autocapitalize="off"
+                   spellcheck="false"
+                   maxlength="20"
+                   #lastName="ngModel">
+            <label>Last Name</label>
+            <i class="icon fas fa-user"></i>
+
+            <div class="error-holder">
+              <small *ngIf="lastName.invalid && lastName.touched">
+                Last name is required
+              </small>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-floating mb-2">
+            <input type="email"
+                   class="form-control"
+                   placeholder="Email"
+                   name="email"
+                   [(ngModel)]="registerObj.email"
+                   required
+                   email
+                   autocomplete="off"
+                   spellcheck="false"
+                   #email="ngModel">
+            <label>Email</label>
+            <i class="icon fas fa-envelope"></i>
+
+            <div class="error-holder">
+              <small *ngIf="email.invalid && email.touched">
+                Enter a valid email
+              </small>
+            </div>
+          </div>
+
+          <!-- Mobile -->
+        <div class="form-floating mb-2">
+  <input
+    type="tel"
+    class="form-control"
+    placeholder="Mobile"
+    name="phone"
+    [(ngModel)]="registerObj.phone"
+    required
+    
+    inputmode="numeric"
+    maxlength="10"
+    (keypress)="allowOnlyNumbers($event)"
+    autocomplete="off"
+    #phone="ngModel">
+
+  <label>Mobile</label>
+  <i class="icon fas fa-phone"></i>
+
+  <div class="error-holder">
+    <small *ngIf="phone.invalid && phone.touched">
+      Enter valid 10-digit mobile number
+    </small>
+  </div>
 </div>
+
+
+          <!-- Password -->
+        <div class="form-floating mb-2">
+  <input
+    [type]="showPassword ? 'text' : 'password'"
+    class="form-control"
+    placeholder="Password"
+    name="password"
+    [(ngModel)]="registerObj.password"
+    required
+    minlength="6"
+    autocomplete="new-password"
+    #password="ngModel">
+
+  <label>Password</label>
+
+  <!-- CLICKABLE ICON -->
+  <i class="icon fas"
+     [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+     (click)="togglePassword()"
+     style="cursor:pointer; pointer-events:auto;"></i>
+
+  <div class="error-holder">
+    <small *ngIf="password.invalid && password.touched">
+      Password must be at least 6 characters
+    </small>
+  </div>
+</div>
+
+
+          <div class="text-center mt-2">
+            <small>
+              Already have an account?
+              <a (click)="switchToLogin()" class="switch-link">Login</a>
+            </small>
+          </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="modal-footer">
+          <button type="button"
+                  class="btn btn-gradient"
+                  (click)="closeRegister()">
+            Close
+          </button>
+
+          <button type="button"
+                  class="btn btn-gradient spark"
+                  [disabled]="registerForm.invalid"
+                  (click)="onRegister()">
+            Register
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
 &nbsp;&nbsp;
 
 
@@ -412,8 +650,6 @@
   </div>
   <!-- <div class="chatbot-widget"> -->
 
-
-
   <!-- AI CHAT BOX -->
 
   <!-- FLOATING CHATBOT -->
@@ -438,9 +674,25 @@
         👋 Hi! I can help you with train search, booking & rules.
       </div>
 
-      <div *ngFor="let m of messages" [class.user-msg]="m.from==='user'" [class.bot-msg]="m.from==='bot'">
+      <!-- <div *ngFor="let m of messages" [class.user-msg]="m.from==='user'" [class.bot-msg]="m.from==='bot'">
         {{ m.text }}
-      </div>
+      </div> -->
+   <div *ngFor="let m of messages"
+     [class.user-msg]="m.from==='user'"
+     [class.bot-msg]="m.from==='bot'">
+
+  <span class="msg-text">{{ m.text }}</span>
+
+  <!-- 🔊 MOBILE SPEAK BUTTON (ONLY FOR BOT) -->
+  <button
+    *ngIf="m.from==='bot'"
+    class="wa-voice-btn"
+    (click)="speakMobile(m.text)">
+    🔊
+  </button>
+
+</div>
+
     </div>
      <!-- 🎙️ LISTENING OVERLAY (YAHAN ADD KARO 👇) -->
   <div class="listening-overlay" *ngIf="isListening">
@@ -467,8 +719,5 @@
   <button class="chat-fab" (click)="isChatOpen=!isChatOpen">
     🤖
   </button>
-
-
-
 
 </footer>

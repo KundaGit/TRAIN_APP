@@ -97,3 +97,13 @@ body.modal-open {
 .irctc-contact-modal .modal-title {
   font-weight: 600;
 }
+
+/* Railway-style success popup */
+.railway-success-popup {
+  border-radius: 6px;
+  padding: 18px 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  font-weight: 500;
+}
+
+
