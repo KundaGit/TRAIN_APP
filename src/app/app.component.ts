@@ -438,7 +438,7 @@ sendMessage() {
     error: () => {
       this.messages.push({
         from: 'bot',
-        text: 'Sorry, your internet is slow.'
+        text: '⚠️ Kundan AI is temporarily unavailable. Please try again later.'
       });
     }
   });
