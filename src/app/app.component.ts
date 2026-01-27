@@ -424,8 +424,8 @@ sendMessage() {
 
   // ✅ backend ko call
   this.http.post<any>(
-    'http://localhost:3000/api/chat',
-     // 'https://train-backend.onrender.com/api/chat', 
+    // 'http://localhost:3000/api/chat',
+     'https://train-backend.onrender.com/api/chat', 
     { message: userMessage }
   ).subscribe({
     next: (res: any) => {
