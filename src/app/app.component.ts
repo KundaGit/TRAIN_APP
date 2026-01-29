@@ -562,11 +562,20 @@ speakMobile(text: string) {
     };
     reader.readAsDataURL(file);
   }
+ 
   @HostListener('document:click', ['$event'])
-  onDocumentClick(event:MouseEvent){
-    const target=event.target as HTMLElement;
-    if(!target.closest('.user-card') && !target.closest('.user-btn')){
-      this.showUserCard=false
-    }
+onDocumentClick(event: MouseEvent) {
+
+  const target = event.target as HTMLElement;
+
+  const clickedUserBtn = target.closest('.user-btn');
+  const clickedUserCard = target.closest('.user-card');
+  const clickedNavbar = target.closest('nav');
+
+  // ❌ sirf tab close karo jab bilkul bahar click ho
+  if (!clickedUserBtn && !clickedUserCard && !clickedNavbar) {
+    this.showUserCard = false;
   }
+}
+
 }
