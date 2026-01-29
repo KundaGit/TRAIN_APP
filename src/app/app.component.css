@@ -1560,5 +1560,52 @@ body {
   }
 }
 
+/* ===============================
+   USER CARD – DESKTOP STYLE EVEN ON MOBILE
+================================= */
+@media (max-width: 768px) {
+  .user-card {
+    position: fixed;
+    top: 70px;              /* navbar ke niche */
+    right: 10px;            /* desktop jaisa */
+    left: auto;
+
+    width: 260px;           /* 🔥 EXACT desktop width */
+    max-width: 260px;
+
+    max-height: 70vh;
+    overflow-y: auto;
+
+    border-radius: 18px;
+    z-index: 9999;
+
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+
+    animation: fadeSlideIn 0.25s ease;
+  }
+}
+
+/* smooth desktop-like entry */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.user-card {
+  border: 1px solid rgba(255,255,255,0.6);
+}
+.btn-close-card:hover {
+  transform: scale(1.02);
+}
+
+
+
 
 
