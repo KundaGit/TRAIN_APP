@@ -1423,3 +1423,142 @@ body {
   margin-top: 0px !important;
 }
 
+/* Mobile navbar fix */
+.irctc-time-bar {
+  position: absolute;
+  left: 50%;
+}
+@media (max-width: 991px) {
+  .navbar {
+    height: auto;        /* 🔥 FIX */
+    padding: 8px 12px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 991px) {
+  .irctc-time-bar {
+    display: none;       /* 🔥 MOBILE ME HIDE */
+  }
+}
+
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background: #1e6fa8;
+    margin-top: 10px;
+    border-radius: 16px;
+    padding: 12px;
+  }
+
+  .navbar-nav {
+    gap: 10px;
+  }
+
+  .nav-link {
+    margin-left: 0 !important;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .navbar .btn {
+    width: 100%;
+  }
+}
+@media (max-width: 991px) {
+  .train-panel {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: 60vh;
+    border-radius: 18px 18px 0 0;
+    animation: slideUp 0.25s ease;
+  }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@media (max-width: 991px) {
+  .user-card {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+    max-height: 75vh;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 991px) {
+  .hero-wrapper {
+    margin-top: 12px;
+  }
+}
+
+.nav-link {
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.nav-link:active {
+  transform: scale(0.97);
+}
+
+
+/* train */
+/* ===============================
+   TRAIN PANEL – MOBILE LIKE DESKTOP
+================================= */
+@media (max-width: 768px) {
+
+  .train-panel {
+    position: fixed;
+    top: 70px;                 /* navbar ke niche */
+    right: 10px;
+    left: auto;
+
+    width: calc(100% - 20px);  /* side margin ke sath */
+    max-width: 340px;          /* desktop jaisa feel */
+
+    max-height: 60vh;
+    overflow-y: auto;
+
+    border-radius: 16px;
+    padding: 10px;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    animation: fadeSlide 0.2s ease;
+  }
+
+  .train-item {
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+}
+
+/* animation */
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .backdrop {
+    background: rgba(0,0,0,0.15); /* halka sa */
+  }
+}
+
+
+
