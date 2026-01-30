@@ -2,7 +2,6 @@
   "name": "train",
   "version": "0.0.0",
   "scripts": {
-    "install": "npm install --legacy-peer-deps",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
