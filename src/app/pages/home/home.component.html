@@ -56,14 +56,20 @@
                 <!-- FROM -->
                 <div class="col-12 col-md-5 mb-2 mb-md-0">
                   <label class="form-label fw-semibold">From Station</label>
-                  <select [(ngModel)]="fromStationId" (ngModelChange)="clearError()" name="fromStationId"
+                  <!-- <select [(ngModel)]="fromStationId" (ngModelChange)="clearError()" name="fromStationId"
                     class="form-select">
                     <option value="0">Select Station</option>
                     @for(item of stationList; track $index){
-                    <option [value]="item.stationID">{{ item.stationName }}</option>
+                    <option [value]="item.stationID">{{ item.stationName |uppercase}}</option>
 
                     }
-                  </select>
+                  </select> -->
+                  <ng-select [items]="stationList" bindLabel="stationNameUpper" bindValue="stationID"
+                    placeholder="Select Station" [(ngModel)]="fromStationId" [ngModelOptions]="{ standalone: true }"
+                    [searchable]="true" [clearable]="true">
+                  </ng-select>
+
+
                 </div>
 
                 <!-- SWAP BUTTON -->
@@ -77,13 +83,20 @@
                 <!-- TO -->
                 <div class="col-12 col-md-5">
                   <label class="form-label fw-semibold">To Station</label>
-                  <select [(ngModel)]="toStationId" (ngModelChange)="clearError()" name="toStationId"
+                  <!-- <select [(ngModel)]="toStationId" (ngModelChange)="clearError()" name="toStationId"
                     class="form-select">
                     <option value="0">Select Station</option>
                     @for(item of stationList; track $index){
-                    <option [value]="item.stationID">{{ item.stationName }}</option>
+                    <option [value]="item.stationID">{{ item.stationName |uppercase }}</option>
                     }
-                  </select>
+                  </select> -->
+                  <ng-select [items]="stationList" bindLabel="stationNameUpper" bindValue="stationID"
+                    placeholder="Select Station" [(ngModel)]="toStationId" [searchable]="true" [clearable]="true"
+                    [ngModelOptions]="{ standalone: true }">
+
+                  </ng-select>
+
+
                 </div>
 
               </div>
@@ -168,7 +181,7 @@
 
           <!-- <div class="card shadow-lg rounded-4 overflow-hidden" style="border:none;"> -->
 
-          <div class="card shadow-lg rounded-4 train-wrapper" style="border:none; overflow: visible;">
+          <div class="card shadow-lg  train-wrapper" style="border:none; overflow: visible;">
             <img
               src="https://www.livemint.com/lm-img/img/2024/04/08/1600x900/LVande_Bharat_1712573526957_1712573527261.jpg"
               class="img-fluid" alt="Train Image" style="object-fit:cover; height:100%; width:100%;" />
