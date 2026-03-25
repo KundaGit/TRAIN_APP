@@ -107,7 +107,7 @@
           </div>
 
           <div class="action-btns">
-            <button class="btn btn-success btn-sm" (click)="openBooking()">Book Now</button>
+            <button class="btn btn-success btn-sm" (click)="openBooking()">Book the Now</button>
             <button class="btn btn-secondary btn-sm ms-2" (click)="openBooking()">
               Check Availability
             </button>
@@ -331,7 +331,7 @@
 
     <div class="modal-footer">
       <button class="btn btn-danger" (click)="closeBooking()">Close</button>
-      <button class="btn btn-success" [disabled]="!passengers.length" (click)="gotToPayment()">
+      <button class="btn btn-success" [disabled]="!passengers.length" (click)="payNow()">
         Book Ticket
       </button>
     </div>
