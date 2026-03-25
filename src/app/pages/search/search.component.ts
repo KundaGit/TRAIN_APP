@@ -9,6 +9,8 @@ import { OnlyNumberDirective } from '../../only-number.directive';
 import { HomeComponent } from '../home/home.component';
 import * as QRCode from 'qrcode';
 import jsPDF from 'jspdf';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -254,13 +256,89 @@ paymentSuccess = false;
 txnId = '';
 
 payNow() {
+
   this.isPaying = true;
+ 
+  // total amount calculate
+  const amount = this.passengers.length * this.pricePerSeat;
+
+  fetch("http://localhost:3000/api/payment/create-order", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ amount })
+  })
+    .then(res => res.json())
+    .then(data => {
+const options: any = {
+  key: "rzp_test_SOcymByDl314IL",
+  amount: data.order.amount,
+  currency: "INR",
+  order_id: data.order.id,
+
+  name: "Train Booking",
+
+  // 👇 YAHAN MAGIC HAI
+  description: `From: ${this.fromStationName} → ${this.toStationName}`,
+
+  notes: {
+    date: this.dateOfJourney,
+    pnr: this.pnr
+  },
+
+  handler: (response: any) => {
+    fetch("http://localhost:3000/api/payment/verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(response)
+    })
+.then(() => {
+
+  this.showBooking = false;
+  this.showPayment = false;
+
+  this.paymentSuccess = true;
+  this.txnId = response.razorpay_payment_id;
+
+  // 🔥 IMPORTANT FIX
+  this.totalAmount = this.passengers.length * this.pricePerSeat;
+
+  this.pnr = this.pnr || (Math.floor(1000000000 + Math.random() * 9000000000).toString());
 
   setTimeout(() => {
-    this.isPaying = false;
-    this.paymentSuccess = true;
-    this.txnId = 'TXN' + Math.floor(1000000000 + Math.random() * 9000000000);
-  }, 1500);
+   Swal.fire({
+  title: '🎉 Payment Successful!',
+  html: `
+    <b>Your ticket is ready</b><br><br>
+    Click below to download
+  `,
+  icon: 'success',
+  confirmButtonText: '📄 Download Ticket',
+  confirmButtonColor: '#28a745',
+  showCancelButton: true,
+  cancelButtonText: 'Close'
+}).then((result) => {
+
+  if (result.isConfirmed) {
+    this.downloadTicket(); // 👈 click pe download
+  }
+
+});
+  }, 300);
+
+});
+  }
+};
+     
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.open();
+    })
+    .catch(() => {
+      this.isPaying = false;
+      alert("Payment Failed");
+    });
 }
 loggedInUser: any = JSON.parse(localStorage.getItem('token') || '{}');
 // download ticket as PDF
@@ -275,7 +353,7 @@ downloadTicket() {
   const from = this.fromStationName;
   const to = this.toStationName;
   const date = this.dateOfJourney;
-  const name = `${this.loggedInUser.firstName} ${this.loggedInUser.lastName}`;
+const name = `${this.loggedInUser?.firstName || 'Guest'} ${this.loggedInUser?.lastName || ''}`;
   const pnr = this.pnr;
   const bookingId = 'BK' + Date.now().toString().slice(-6);
   const train = 'Express';
