@@ -262,7 +262,7 @@ payNow() {
   // total amount calculate
   const amount = this.passengers.length * this.pricePerSeat;
 
-  fetch("http://localhost:3000/api/payment/create-order", {
+  fetch("https://train-backend-hh0n.onrender.com/api/payment/create-order", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -288,7 +288,7 @@ const options: any = {
   },
 
   handler: (response: any) => {
-    fetch("http://localhost:3000/api/payment/verify", {
+    fetch("https://train-backend-hh0n.onrender.com/api/payment/verify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(response)
