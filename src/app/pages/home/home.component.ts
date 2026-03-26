@@ -1,4 +1,4 @@
-import { NgSelectModule } from '@ng-select/ng-select';
+import { from } from 'rxjs';
 import { IsStation } from '../../model/train';
 import { TrainService } from './../../service/train.service';
 import { Component, inject, OnInit } from '@angular/core';
@@ -8,10 +8,9 @@ import { CommonModule } from '@angular/common';
 import { jsPDF } from 'jspdf';
 import * as QRCode from 'qrcode';
 
-
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, CommonModule, NgSelectModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -39,12 +38,6 @@ export class HomeComponent implements OnInit {
     debugger;
     this.trainService.getAllStations().subscribe((res: any) => {
       this.stationList = res.data;
-       this.trainService.getAllStations().subscribe((res: any) => {
-    this.stationList = res.data.map((st: any) => ({
-      ...st,
-      stationNameUpper: st.stationName.toUpperCase()
-    }));
-  });
     });
   }
 
@@ -86,8 +79,6 @@ export class HomeComponent implements OnInit {
       this.dateOfJourney
     );
   }
-  // Search train
-  
 
   // Hide the error whill input filled
   clearError() {
@@ -116,12 +107,11 @@ export class HomeComponent implements OnInit {
   }
 
   // swap train
- swapStations() {
-  const temp = this.fromStationId;
-  this.fromStationId = this.toStationId;
-  this.toStationId = temp;
-}
-
+  swapStations() {
+    const put = this.fromStationId;
+    this.fromStationId = this.toStationId;
+    this.toStationId = put;
+  }
   // Date Modification like modern
 
   selectQuickDate(addDays: number, day: 'today' | 'tomorrow' | 'dayAfter') {
